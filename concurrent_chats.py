@@ -87,54 +87,54 @@ def count_simul(group):
     """
     n = 0
     g = []
-    """
-    For each user, start the loop with a time range covering the distant
-    past to distant future
-    """
+    ranges = {}
+
+    # For each user, start the loop with a time range covering the distant
+    # past to distant future
     started_time = pd.Timestamp('1900-01-01')
     ended_time = pd.Timestamp('2099-12-31')
 
     for index, row in group.iterrows():
-        # breakpoint()
         if (row['started_time'] < ended_time) and (started_time < row['ended_time']):
-            """
-            If the current row overlaps with the time range defined by
-            `started_time` and `ended_time`, set `started_time` and
-            `ended_time` to the intersection of the two. And keep the row
-            in the current time group
-            """
+            # If the current row overlaps with the time range defined by
+            # `started_time` and `ended_time`, set `started_time` and
+            # `ended_time` to the intersection of the two. And keep the row
+            # in the current time group
             started_time = max(started_time, row['started_time'])
             ended_time = min(ended_time, row['ended_time'])
         else:
-            """
-            Otherwise, set `started_time` and `ended_time` to those of the
-            current row and assign the current row to a new time group
-            """
+            # Otherwise, set `started_time` and `ended_time` to those of the
+            # current row and assign the current row to a new time group
             started_time, ended_time = row[['started_time', 'ended_time']]
             n += 1
 
+        # `ranges` is a dictionary mapping each group number to the time range
+        ranges[n] = (started_time, ended_time)
         g.append(n)
 
     # Group the rows by their time group number and get the size
-    return group.groupby(np.array(g)).size()
-
+    freq = group.groupby(np.array(g)).size()
+    freq.index = freq.index.map(ranges)
+    return freq
 
 if __name__ == '__main__':
     #if I want a result for a specific day
     all_chats = chats.list_day(2019,9,9)
-    #all_chats = chats.list_day(2019,9,9, to="2020-04-09")
+    all_chats = chats.list_day(2019,9,9, to="2020-04-09")
     data = main(all_chats)
     df = prepare_dataframe(data)
     #breakpoint()
 
-    df = df.sort_values(['operator', 'started_time', 'ended_time', 'date']) \
-    .groupby(['operator']) \
-    .apply(count_simul) \
-    .replace(1, np.nan).dropna()
+    df = df.sort_values(['operator', 'started_time', 'ended_time']) \
+        .groupby('operator') \
+        .apply(count_simul) \
+        .replace(1, np.nan).dropna()
     df = df.to_frame().reset_index()
-    df = df.rename(columns={0: 'total concurrent chats'})
+    df = df.rename(columns={0: 'total concurrent chats', 'level_2': 'Datetime'})
     del df['level_1']
-    #df.to_excel("concurrent_chats.xlsx", index=False)
-    print(df.tail())
+    df = df.sort_values(['Datetime', 'total concurrent chats'])
+    df.to_excel("concurrent_chats.xlsx", index=False)
+    # breakpoint()
+    print(df.tail(50))
 
     #breakpoint()
