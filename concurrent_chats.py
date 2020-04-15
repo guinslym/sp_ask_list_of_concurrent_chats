@@ -132,7 +132,9 @@ if __name__ == '__main__':
     .apply(count_simul) \
     .replace(1, np.nan).dropna()
     df = df.to_frame().reset_index()
+    df = df.rename(columns={0: 'total concurrent chats'})
+    del df['level_1']
     #df.to_excel("concurrent_chats.xlsx", index=False)
-    print(df.head())
+    print(df.tail())
 
     #breakpoint()
