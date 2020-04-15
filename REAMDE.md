@@ -1,5 +1,5 @@
-### List of concurrent chats
-
+## List of concurrent chats
+provide a list of concurrents chats per operators
 
 ## Usage
 
@@ -14,7 +14,7 @@ poetry run python concurrent_chats.py
 
 ```
 
-### Todo
+## Todo
 
 1.  Add tests
 2.  Add column for Date
