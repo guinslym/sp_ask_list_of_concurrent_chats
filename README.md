@@ -18,4 +18,4 @@ poetry run python concurrent_chats.py
 
 1.  Add tests
 2.  Add column for Date
-3.  Create pyton package
+3.  Create python package
