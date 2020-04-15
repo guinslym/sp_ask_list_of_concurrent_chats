@@ -25,7 +25,9 @@ poetry run python concurrent_chats.py
 ## Todo
 
 1.  Add tests
-2.  Add column for Date
+2.  ~~Add column for Date~~
 3.  Add Makefile
-4.  Add pypi
-3.  Create python package
+4.  ~~Add pypi~~
+5.  Create python package
+6.  Add screenshot to Readme.md
+
