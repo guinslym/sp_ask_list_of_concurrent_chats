@@ -1,0 +1,5 @@
+poetry
+lh3api
+numpy
+pandas
+openpyxl
