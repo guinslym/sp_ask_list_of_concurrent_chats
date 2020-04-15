@@ -18,9 +18,11 @@ Example:
 poetry run python concurrent_chats.py
 #or
 pip install -r requirements.txt
+poetry install 
 poetry run python concurrent_chats.py
 
 ```
+
 
 ## Todo
 
