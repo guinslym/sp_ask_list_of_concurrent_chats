@@ -6,8 +6,7 @@ import pandas as pd
 import numpy as np
 import lh3.api as lh3
 
-client = lh3.Client()
-chats = client.chats()
+
 
 def remove_practice_queues(chats_this_day):
     """remove all chats thas was from the
@@ -134,12 +133,15 @@ def find_concurrent_chats(all_chats):
         .replace(1, np.nan).dropna()
     df = df.to_frame().reset_index()
     df = df.rename(columns={0: 'total concurrent chats', 'level_2': 'Datetime'})
+    df["Datetime"] = df['Datetime'].apply(lambda x:x.date())
     del df['level_1']
     df = df.sort_values(['Datetime', 'total concurrent chats'])
     # print(df.tail(50))
     return df
 
 if __name__ == '__main__':
+    client = lh3.Client()
+    chats = client.chats()
     #if I want a result for a specific day
     all_chats = chats.list_day(2019,9,9)
     all_chats = chats.list_day(2019,9,9, to="2020-04-09")

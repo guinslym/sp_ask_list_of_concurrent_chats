@@ -9,17 +9,31 @@
 
 provide a list of concurrents chats per operators
 
+## Installation
+
+**Ask Schools** can be installed from PyPI using `pip` or your package manager of choice:
+
+```
+pip install sp_ask_list_of_concurrent_chats
+# or
+poetry add sp_ask_list_of_concurrent_chats
+```
+
 ## Usage
 
 Example:
 
 ```python
 
-poetry run python concurrent_chats.py
-#or
-pip install -r requirements.txt
-poetry install 
-poetry run python concurrent_chats.py
+from sp_ask_list_of_concurrent_chats import find_concurrent_chats
+import lh3.api as lh3
+
+if __name__ == '__main__':
+    client = lh3.Client()
+    chats = client.chats()
+    all_chats = chats.list_day(2019,9,9, to="2019-10-09")
+    df = find_concurrent_chats(all_chats)
+    print(df.tail(10))
 
 ```
 
