@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "sp_ask_list_of_concurrent_chats"
-version = "0.1.0"
-description = ""
+version = "0.1.2"
+description = "Concurrent chats on LibraryH3lp"
 authors = ["Guinsly Mondesir <guinslym@gmail.com>"]
 
 [tool.poetry.dependencies]

@@ -1,3 +1,4 @@
+__version__ = '0.1.2'
 from pprint import pprint as print
 from datetime import datetime, timedelta
 from datetime import date

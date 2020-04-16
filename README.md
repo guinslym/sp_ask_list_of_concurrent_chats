@@ -44,6 +44,6 @@ if __name__ == '__main__':
 2.  ~~Add column for Date~~
 3.  Add Makefile
 4.  ~~Add pypi~~
-5.  Create python package
+5.  ~~Create python package~~
 6.  Add screenshot to Readme.md
 
